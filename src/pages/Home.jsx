@@ -4,10 +4,11 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
+import {SearchContext} from "../App";
 
 
 
- const Home = ({searchValue}) => {
+ const Home = () => {
 
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
@@ -15,14 +16,14 @@ import Pagination from "../components/Pagination";
      const [categoryId, setCategoryId] = React.useState(0)
      const [currentPage, setCurrentPage] = React.useState(1)
 
-
+     const {searchValue} = React.useContext(SearchContext)
 
     React.useEffect(() => {
         setIsLoading(true)
 
         const sortMethod = selectedSort.sortType.includes('-') ? 'asc' : 'desc'
         const sortBy = selectedSort.sortType.replace('-','')
-        const search = searchValue ? `&search=${searchValue}` : ''
+       /* const search = searchValue ? `&search=${searchValue}` : ''*/
 
         fetch(`https://6311b8dd19eb631f9d779584.mockapi.io/items?page=${currentPage}&limit=8&sortBy=${sortBy}&order=${sortMethod}&category=${categoryId}`)
 
