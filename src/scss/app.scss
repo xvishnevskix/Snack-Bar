@@ -27,6 +27,8 @@ body {
 
   &__title {
     margin: 35px 0;
+    font-weight: 800;
+    font-size: 32px;
   }
 
   &__items {
@@ -150,6 +152,9 @@ body {
       }
     }
   }
+.content__items {
+  display: block;
+}
 
   &__item {
     display: flex;
