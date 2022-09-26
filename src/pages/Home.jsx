@@ -13,12 +13,11 @@ import {setCategoryId} from "../redux/slices/filterSlice";
 
  const Home = () => {
 
-     const {category, selectedSort} = useSelector((state) => state.filter)
+     const {category, selectedSort, currentPage} = useSelector((state) => state.filter)
 
 
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
-     const [currentPage, setCurrentPage] = React.useState(1)
      const {searchValue} = React.useContext(SearchContext)
 
 
@@ -56,7 +55,7 @@ import {setCategoryId} from "../redux/slices/filterSlice";
     <div className="content__items">
         {isLoading ? skeleton : pizzas}
     </div>
-            <Pagination onChangePage={(id) => setCurrentPage(id)}/>
+            <Pagination/>
         </>
     )
 }
