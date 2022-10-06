@@ -19,9 +19,23 @@ const filterSlice = createSlice({
         },
         setCurrentPage(state,action) {
             state.currentPage= action.payload
+        },
+        setFilters(state, action) {
+            if (Object.keys(action.payload).length) {
+                state.currentPage = Number(action.payload.currentPage);
+                state.category = Number(action.payload.category);
+                state.selectedSort = action.payload.selectedSort;
+            } else {
+                state.currentPage = 1;
+                state.category = 0;
+                state.selectedSort = {
+                    name: 'популярности',
+                    sortType: 'rating',
+                };
+            }
         }
     }
 })
 
-export const {setCategoryId, setSelectedSort,setCurrentPage} = filterSlice.actions
+export const {setCategoryId, setSelectedSort,setCurrentPage, setFilters} = filterSlice.actions
 export default filterSlice.reducer

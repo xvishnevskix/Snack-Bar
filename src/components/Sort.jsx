@@ -2,30 +2,44 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedSort} from "../redux/slices/filterSlice";
 
+export  const sortList = [
+    {name: 'популярности (убыв)', sortType: 'rating'},
+    {name: 'популярности (возр)', sortType: '-rating'},
+    {name: 'цене(убыв)', sortType: 'price'},
+    {name: 'цене(возр)', sortType: '-price'},
+    {name: 'алфавиту(убыв)', sortType: 'title'},
+    {name: 'алфавиту(возр)', sortType: '-title'},
+
+]
+
 function Sort() {
 
     const dispatch = useDispatch()
     const selectedSort = useSelector((state) => state.filter.selectedSort)
+    const sortRef = React.useRef()
 
     const [isVisible, setIsVisible] = React.useState(false)
-    const list = [
-        {name: 'популярности (убыв)', sortType: 'rating'},
-        {name: 'популярности (возр)', sortType: '-rating'},
-        {name: 'цене(убыв)', sortType: 'price'},
-        {name: 'цене(возр)', sortType: '-price'},
-        {name: 'алфавиту(убыв)', sortType: 'title'},
-        {name: 'алфавиту(возр)', sortType: '-title'},
 
-    ]
     const onClickListItem = (id) => {
         dispatch(setSelectedSort(id))
         setIsVisible(!isVisible)
     }
 
+    React.useEffect(() => {
+        console.log('Маунт')
+        const handleSortClick = (event) => {
+            if (!event.path.includes(sortRef.current)) {
+                setIsVisible(false)
 
+            }
+        }
 
+        document.body.addEventListener('click' , handleSortClick)
 
-    return(<div className="sort">
+        return () => document.body.removeEventListener('click', handleSortClick)
+    }, [])
+
+    return( <div ref={sortRef} className="sort">
         <div  className="sort__label">
             <svg
                 width="10"
@@ -46,7 +60,7 @@ function Sort() {
             isVisible && (
                 <div className="sort__popup">
                     <ul>
-                        {list.map((obj, i) => (
+                        {sortList.map((obj, i) => (
                             <li key={i}
                                 onClick={() => (onClickListItem(obj))}
                                 className={selectedSort.sortType === obj.sortType ? "active" : ""}>
