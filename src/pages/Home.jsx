@@ -10,30 +10,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {setFilters} from "../redux/slices/filterSlice";
 import qs from "qs"
 import { useNavigate } from "react-router-dom";
+import {fetchPizzas} from "../redux/slices/pizzaSlice";
 
 
 
  const Home = () => {
      const navigate = useNavigate()
      const dispatch = useDispatch()
+      const {items, status} = useSelector((state) => state.pizza)
+     const {currentPage, category, selectedSort, searchValue} = useSelector((state) => state.filter)
 
-     const {currentPage, category, selectedSort, } = useSelector((state) => state.filter)
-    const [items, setItems] = React.useState([])
-    const [isLoading, setIsLoading] = React.useState(true)
-     const {searchValue} = React.useContext(SearchContext)
+     // const [items, setItems] = React.useState([])
      const isSearch = React.useRef(false)
      const isMounted = React.useRef(false)
 
-     const fetchPizzas = () => {
-         setIsLoading(true);
+     const getPizzas = async () => {
          const sortMethod = selectedSort.sortType.includes('-') ? 'asc' : 'desc'
          const sortBy = selectedSort.sortType.replace('-', '');
 
-         axios.get(`https://6311b8dd19eb631f9d779584.mockapi.io/items?page=${currentPage}&limit=8&sortBy=${sortBy}&order=${sortMethod}&category=${category}`)
-             .then((res) => {
-                 setItems(res.data);
-                 setIsLoading(false);
-             });
+             dispatch(fetchPizzas({currentPage, sortBy, sortMethod, category}))
+             // setItems(res.data)
+
      };
 
      // React.useEffect(() => {
@@ -64,7 +61,7 @@ import { useNavigate } from "react-router-dom";
      // }, []);
 
     React.useEffect(() => {
-            fetchPizzas()
+            getPizzas()
     }, [category, searchValue,currentPage, selectedSort.sortType])
 
 
@@ -86,9 +83,15 @@ import { useNavigate } from "react-router-dom";
             <Sort />
         </div>
      <h2 className="content__title">Все пиццы</h2>
-    <div className="content__items">
-        {isLoading ? skeleton : pizzas}
-    </div>
+            {
+                status === 'error'
+                    ? (<div className="content__error-info"> <h2>Произошла ошибка <icon>😕</icon></h2>
+                        <p>К сожалению, не удалось получить пиццы.<br/>
+                        Попробуйте повторить снова.</p></div>)
+                    : (<div className="content__items">
+                        {status === 'loading' ? skeleton : pizzas}</div>)
+            }
+
             <Pagination/>
         </>
     )
