@@ -25,6 +25,30 @@ body {
 .content {
   padding: 40px 0;
 
+  &__full-pizza {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+
+    &-title {
+      flex-direction: column;
+
+      h2 {
+        font-size: 36px;
+      }
+      p {
+        margin: 60px auto;
+        width: 600px;
+        font-size: 19px;
+      }
+      h4 {
+        font-size: 17px;
+      }
+    }
+  }
+
+
+
   &__error-info {
     margin: 100px auto;
     width: 580px;
