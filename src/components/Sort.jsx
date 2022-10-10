@@ -26,7 +26,6 @@ function Sort() {
     }
 
     React.useEffect(() => {
-        console.log('Маунт')
         const handleSortClick = (event) => {
             if (!event.path.includes(sortRef.current)) {
                 setIsVisible(false)
