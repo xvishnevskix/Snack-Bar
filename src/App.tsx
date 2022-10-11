@@ -1,5 +1,4 @@
 import './scss/app.scss'
- import Header from "./components/Header";
 import {
     Routes,
     Route,
@@ -13,8 +12,6 @@ import MainLayout from "./layouts/MainLayout";
 
 
 function App() {
-
-
   return (
       <Routes>
           <Route path="/" element={<MainLayout />}>

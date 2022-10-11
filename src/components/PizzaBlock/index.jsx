@@ -11,7 +11,7 @@ function Index({id,title, price, imageUrl, sizes, types}) {
     const [pizzaType, setPizzaType] = useState(0)
     const [pizzaSize, setPizzaSize] = useState(0)
     const dispatch = useDispatch()
-    const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id))
+    const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id && obj.size === pizzaSize && obj.type === pizzaType))
 
     const addedCount = pizzaItem ? pizzaItem.count : 0;
 

@@ -5,7 +5,7 @@ import {addItem, clearItem, minusItem} from "../../redux/slices/cartSlice";
 
 const CartItem = ({id,title, price, imageUrl, count, size, type}) => {
 
-    const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id))
+    const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id && obj.size === size && obj.type === type))
 
     const dispatch = useDispatch()
     const countMinusRef = useRef(false)
