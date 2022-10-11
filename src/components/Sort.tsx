@@ -2,7 +2,11 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedSort} from "../redux/slices/filterSlice";
 
-export  const sortList = [
+type SortItem = {
+    name: string,
+    sortType: string
+}
+export  const sortList: SortItem[] = [
     {name: 'популярности (убыв)', sortType: 'rating'},
     {name: 'популярности (возр)', sortType: '-rating'},
     {name: 'цене(убыв)', sortType: 'price'},
@@ -20,7 +24,7 @@ function Sort() {
 
     const [isVisible, setIsVisible] = React.useState(false)
 
-    const onClickListItem = (id) => {
+    const onClickListItem = (id: SortItem) => {
         dispatch(setSelectedSort(id))
         setIsVisible(!isVisible)
     }

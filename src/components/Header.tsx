@@ -3,11 +3,11 @@
  import Search from "./Search";
  import {useDispatch, useSelector} from "react-redux";
 
-function Header({searchValue, setSearchValue}) {
+function Header() {
 
     const location = useLocation()
     const {items, totalPrice} = useSelector((state) => state.cart)
-    const totalCount = items.reduce((sum, item) => {
+    const totalCount = items.reduce((sum: number, item: any) => {
        return  sum + item.count
     },0)
 
@@ -24,7 +24,7 @@ function Header({searchValue, setSearchValue}) {
                 </Link>
                 {location.pathname !== "/cart" && (
                     <>
-                        <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
+                        <Search />
                     <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
 
