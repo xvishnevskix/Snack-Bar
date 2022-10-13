@@ -6,6 +6,10 @@ type SortItem = {
     name: string,
     sortType: string
 }
+type PopupClick = MouseEvent & {
+    path: Node[]
+}
+
 export  const sortList: SortItem[] = [
     {name: 'популярности (убыв)', sortType: 'rating'},
     {name: 'популярности (возр)', sortType: '-rating'},
@@ -19,8 +23,8 @@ export  const sortList: SortItem[] = [
 function Sort() {
 
     const dispatch = useDispatch()
-    const selectedSort = useSelector((state) => state.filter.selectedSort)
-    const sortRef = React.useRef()
+    const selectedSort = useSelector((state: any) => state.filter.selectedSort)
+    const sortRef = React.useRef<HTMLDivElement>(null)
 
     const [isVisible, setIsVisible] = React.useState(false)
 
@@ -30,10 +34,10 @@ function Sort() {
     }
 
     React.useEffect(() => {
-        const handleSortClick = (event) => {
-            if (!event.path.includes(sortRef.current)) {
+        const handleSortClick = (event: MouseEvent) => {
+            const _event = event as PopupClick //пиздец
+            if (sortRef.current && !_event.path.includes(sortRef.current)) {
                 setIsVisible(false)
-
             }
         }
 

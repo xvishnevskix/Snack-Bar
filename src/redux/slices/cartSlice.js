@@ -10,19 +10,14 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        addItem(state, {payload}) {
-            const findItem = state.items.find(obj => {
-                return ((obj.id === payload.id) &&
-                    (obj.size === payload.size) &&
-                    (obj.type === payload.type))
-            });
-
-            if (findItem) {
-                findItem.count++
+        addItem(state, action) {
+            const item = findItem(state, action)
+            if (item) {
+                item.count++
             } else {
                 state.items.push(
                     {
-                        ...payload,
+                        ...action.payload,
                         count: 1
                     }
                 )
@@ -33,11 +28,10 @@ const cartSlice = createSlice({
            )
         },
         minusItem(state,action) {
-            const findItem = state.items.find((obj) => obj.id === action.payload.id && obj.size === action.payload.size && obj.type === action.payload.type)
-
-            if (findItem) {
-                findItem.count--
-                state.totalPrice = state.totalPrice - findItem.price
+            const item = findItem(state, action)
+            if (item) {
+                item.count--
+                state.totalPrice = state.totalPrice - item.price
             }
         },
         removeItems(state) {
@@ -45,12 +39,19 @@ const cartSlice = createSlice({
             state.totalPrice = 0
         },
         clearItem(state, action) {
-            const findItem = state.items.find((obj) => obj.id === action.payload.id && obj.size === action.payload.size && obj.type === action.payload.type)
-            state.items  = state.items.filter((obj) =>  obj !==  findItem)
-            state.totalPrice = state.totalPrice - findItem.price * findItem.count
+            const item = findItem(state, action)
+            state.items  = state.items.filter((obj) =>  obj !==  item)
+            state.totalPrice = state.totalPrice - item.price * item.count
         }
     }
 })
+
+const findItem = (state, action) => state.items.find(obj => {
+    return ((obj.id === action.payload.id) &&
+        (obj.size === action.payload.size) &&
+        (obj.type === action.payload.type))
+});
+
 
 export const {addItem, removeItems, clearItem, minusItem} = cartSlice.actions
 export default cartSlice.reducer

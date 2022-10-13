@@ -3,10 +3,10 @@
  import Search from "./Search";
  import {useDispatch, useSelector} from "react-redux";
 
-function Header() {
+const Header = () => {
 
     const location = useLocation()
-    const {items, totalPrice} = useSelector((state) => state.cart)
+    const {items, totalPrice} = useSelector((state: any) => state.cart)
     const totalCount = items.reduce((sum: number, item: any) => {
        return  sum + item.count
     },0)

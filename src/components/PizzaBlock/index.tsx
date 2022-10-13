@@ -1,19 +1,30 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addItem} from "../../redux/slices/cartSlice";
 import {Link} from "react-router-dom";
 
+type PizzaBlockProps = {
+    id: string,
+    title: string,
+    price: number,
+    imageUrl: string,
+    count: number,
+    sizes: number[],
+    types: number[],
+    rating: number,
+}
 
-
-function Index({id,title, price, imageUrl, sizes, types}) {
+const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, sizes, types}) => {
 
     const typeNames = ['тонкое', 'традиционное']
     const [pizzaType, setPizzaType] = useState(0)
     const [pizzaSize, setPizzaSize] = useState(0)
     const dispatch = useDispatch()
-    const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id && obj.size === pizzaSize && obj.type === pizzaType))
+    const pizzaItem = useSelector((state:any) => state.cart.items.find((obj:any)=> obj.id ===id))
 
     const addedCount = pizzaItem ? pizzaItem.count : 0;
+
+
 
     const onClickAdd = () => {
         const item = {
@@ -74,7 +85,7 @@ function Index({id,title, price, imageUrl, sizes, types}) {
                             />
                         </svg>
                         <span>Добавить</span>
-                        {addedCount > 0 && <i>{addedCount}</i>}
+                        {addedCount > 0 && <i>{addedCount}</i> }
                     </button>
                 </div>
             </div>
@@ -82,4 +93,4 @@ function Index({id,title, price, imageUrl, sizes, types}) {
        )
 }
 
-export default Index;
+export default PizzaBlock;

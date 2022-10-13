@@ -2,8 +2,17 @@ import React, {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addItem, clearItem, minusItem} from "../../redux/slices/cartSlice";
 
+type CartItemProps = {
+    id: string,
+    title: string,
+    price: number,
+    imageUrl: string,
+    count: number,
+    size: string,
+    type: string
+}
 
-const CartItem = ({id,title, price, imageUrl, count, size, type}) => {
+const CartItem:React.FC<CartItemProps> = ({id,title, price, imageUrl, count, size, type}) => {
 
     const pizzaItem = useSelector((state) => state.cart.items.find((obj)=> obj.id ===id && obj.size === size && obj.type === type))
 
@@ -15,11 +24,18 @@ const CartItem = ({id,title, price, imageUrl, count, size, type}) => {
         dispatch(addItem(pizza))
     }
     const onClickMinus = (pizza) => {
-        dispatch(minusItem(pizza))
+
+        if (pizza.count === 1) {
+            onClickClear(pizza)
+        } else {
+            dispatch(minusItem(pizza))
+        }
     }
 
     const onClickClear = (item) => {
-            dispatch(clearItem(item))
+            if (window.confirm("Вы действительно хотите удалить данную пиццу из корзины?")) {
+                dispatch(clearItem(item))
+            }
     }
     return (
         <div className="cart__item">

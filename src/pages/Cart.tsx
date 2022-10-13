@@ -8,14 +8,14 @@ import CartEmpty from "../components/CartEmpty";
 
 
 
-const Cart = () => {
+const Cart:React.FC = () => {
 
     const pizzaItem = useSelector((state) => state.cart.items)
     const {items, totalPrice} = useSelector((state) => state.cart)
     const totalCount = items.reduce((sum,obj) => {
      return   sum + obj.count
     },0)
-    const pizzas = pizzaItem.map((obj) => <CartItem key={obj.id} {...obj}/>)
+    const pizzas = pizzaItem.map((obj) => <CartItem key={obj.id + obj.type + obj.size} {...obj}/>)
     const dispatch = useDispatch()
 
     if (totalPrice === 0) {

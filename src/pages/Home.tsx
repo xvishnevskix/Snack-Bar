@@ -5,7 +5,6 @@ import Sort, {sortList} from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
-import {SearchContext} from "../App";
 import {useDispatch, useSelector} from "react-redux";
 import {setFilters} from "../redux/slices/filterSlice";
 import qs from "qs"
@@ -14,7 +13,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
 
 
 
- const Home = () => {
+ const Home:React.FC = () => {
      const navigate = useNavigate()
      const dispatch = useDispatch()
       const {items, status} = useSelector((state) => state.pizza)
@@ -72,7 +71,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
              return true
          }
          return false
-     }).map((obj) => <PizzaBlock key={obj.id} {...obj}/>)
+     }).map((obj, index) => <PizzaBlock key={obj.id + obj.type + obj.size} {...obj}/>)
 
 
     return (
@@ -85,7 +84,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
      <h2 className="content__title">Все пиццы</h2>
             {
                 status === 'error'
-                    ? (<div className="content__error-info"> <h2>Произошла ошибка <icon>😕</icon></h2>
+                    ? (<div className="content__error-info"> <h2>Произошла ошибка <span>😕</span></h2>
                         <p>К сожалению, не удалось получить пиццы.<br/>
                         Попробуйте повторить снова.</p></div>)
                     : (<div className="content__items">
