@@ -1,7 +1,21 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+export type CartItem = {
+    id: string,
+    title: string,
+    price: number,
+    imageUrl: string,
+    count: number,
+    size: number,
+    type: string
+}
 
-const initialState = {
+type CartSliceState = {
+    totalPrice: number,
+    items: CartItem[]
+}
+
+const initialState: CartSliceState = {
 items: [],
 totalPrice: 0,
 }
@@ -10,7 +24,7 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initialState,
     reducers: {
-        addItem(state, action) {
+        addItem(state, action: PayloadAction<CartItem>) {
             const item = findItem(state, action)
             if (item) {
                 item.count++
@@ -27,7 +41,7 @@ const cartSlice = createSlice({
               }, 0
            )
         },
-        minusItem(state,action) {
+        minusItem(state,action: PayloadAction<CartItem>) {
             const item = findItem(state, action)
             if (item) {
                 item.count--
@@ -38,18 +52,20 @@ const cartSlice = createSlice({
            state.items = []
             state.totalPrice = 0
         },
-        clearItem(state, action) {
+        clearItem(state, action: PayloadAction<CartItem>) {
             const item = findItem(state, action)
             state.items  = state.items.filter((obj) =>  obj !==  item)
-            state.totalPrice = state.totalPrice - item.price * item.count
+            if (item) {
+                state.totalPrice = state.totalPrice - item.price * item.count
+            }
         }
     }
 })
 
-const findItem = (state, action) => state.items.find(obj => {
-    return ((obj.id === action.payload.id) &&
-        (obj.size === action.payload.size) &&
-        (obj.type === action.payload.type))
+const findItem = (state: CartSliceState, {payload}: PayloadAction<CartItem>) => state.items.find(obj => {
+    return ((obj.id === payload.id) &&
+        (obj.size === payload.size) &&
+        (obj.type === payload.type))
 });
 
 

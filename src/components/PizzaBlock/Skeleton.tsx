@@ -1,6 +1,7 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
 import PizzaBlock from "./index";
+import {RootState} from "../../redux/store";
 
 const Skeleton = (props: any) => (
     <ContentLoader

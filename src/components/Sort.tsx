@@ -1,6 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {setSelectedSort} from "../redux/slices/filterSlice";
+import {RootState} from "../redux/store";
 
 type SortItem = {
     name: string,
@@ -23,12 +24,12 @@ export  const sortList: SortItem[] = [
 function Sort() {
 
     const dispatch = useDispatch()
-    const selectedSort = useSelector((state: any) => state.filter.selectedSort)
+    const selectedSort = useSelector((state: RootState) => state.filter.selectedSort)
     const sortRef = React.useRef<HTMLDivElement>(null)
 
     const [isVisible, setIsVisible] = React.useState(false)
 
-    const onClickListItem = (id: SortItem) => {
+    const onClickListItem = (id: any) => {
         dispatch(setSelectedSort(id))
         setIsVisible(!isVisible)
     }

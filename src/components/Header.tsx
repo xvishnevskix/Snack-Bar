@@ -2,12 +2,13 @@
  import {Link, useLocation} from "react-router-dom";
  import Search from "./Search";
  import {useDispatch, useSelector} from "react-redux";
+ import {RootState} from "../redux/store";
 
 const Header = () => {
 
     const location = useLocation()
-    const {items, totalPrice} = useSelector((state: any) => state.cart)
-    const totalCount = items.reduce((sum: number, item: any) => {
+    const {items, totalPrice} = useSelector((state: RootState) => state.cart)
+    const totalCount = items.reduce((sum: number, item) => {
        return  sum + item.count
     },0)
 
