@@ -1,6 +1,6 @@
 import ReactPaginate from "react-paginate";
 import styles from "./Pagination.module.scss"
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setCurrentPage} from "../../redux/slices/filterSlice";
 
 const Pagination = () => {
@@ -15,7 +15,7 @@ const Pagination = () => {
             pageRangeDisplayed={8}
             pageCount={2}
             previousLabel="<"
-            renderOnZeroPageCount={null}
+
         />
     )
 }

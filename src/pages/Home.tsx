@@ -5,20 +5,21 @@ import Sort, {sortList} from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
-import {SearchContext} from "../App";
 import {useDispatch, useSelector} from "react-redux";
-import {setFilters} from "../redux/slices/filterSlice";
+import {filterSelector, setFilters} from "../redux/slices/filterSlice";
 import qs from "qs"
 import { useNavigate } from "react-router-dom";
-import {fetchPizzas} from "../redux/slices/pizzaSlice";
+import {fetchPizzas, Pizza, pizzaSelector} from "../redux/slices/pizzaSlice";
+import {AppDispatch, RootState, useAppDispatch} from "../redux/store";
+import App from "../App";
 
 
 
- const Home = () => {
+ const Home:React.FC = () => {
      const navigate = useNavigate()
-     const dispatch = useDispatch()
-      const {items, status} = useSelector((state) => state.pizza)
-     const {currentPage, category, selectedSort, searchValue} = useSelector((state) => state.filter)
+     const dispatch = useAppDispatch()
+      const {items, status} = useSelector(pizzaSelector)
+     const {currentPage, category, selectedSort, searchValue} = useSelector(filterSelector)
 
      // const [items, setItems] = React.useState([])
      const isSearch = React.useRef(false)
@@ -28,7 +29,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
          const sortMethod = selectedSort.sortType.includes('-') ? 'asc' : 'desc'
          const sortBy = selectedSort.sortType.replace('-', '');
 
-             dispatch(fetchPizzas({currentPage, sortBy, sortMethod, category}))
+             dispatch(fetchPizzas({currentPage: String(currentPage), sortBy, sortMethod, category: String(category)}))
              // setItems(res.data)
 
      };
@@ -72,7 +73,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
              return true
          }
          return false
-     }).map((obj) => <PizzaBlock key={obj.id} {...obj}/>)
+     }).map((obj: Pizza) => <PizzaBlock key={obj.id + obj.types + obj.sizes} {...obj}/>)
 
 
     return (
@@ -85,7 +86,7 @@ import {fetchPizzas} from "../redux/slices/pizzaSlice";
      <h2 className="content__title">Все пиццы</h2>
             {
                 status === 'error'
-                    ? (<div className="content__error-info"> <h2>Произошла ошибка <icon>😕</icon></h2>
+                    ? (<div className="content__error-info"> <h2>Произошла ошибка <span>😕</span></h2>
                         <p>К сожалению, не удалось получить пиццы.<br/>
                         Попробуйте повторить снова.</p></div>)
                     : (<div className="content__items">

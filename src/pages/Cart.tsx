@@ -1,21 +1,21 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import CartItem from "../components/CartItem";
 import {useDispatch, useSelector} from "react-redux";
-import PizzaBlock from "../components/PizzaBlock";
 import {removeItems} from "../redux/slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
+import {RootState} from "../redux/store";
 
 
 
-const Cart = () => {
+const Cart:React.FC = () => {
 
-    const pizzaItem = useSelector((state) => state.cart.items)
-    const {items, totalPrice} = useSelector((state) => state.cart)
+    const pizzaItem = useSelector((state: RootState) => state.cart.items)
+    const {items, totalPrice} = useSelector((state: RootState) => state.cart)
     const totalCount = items.reduce((sum,obj) => {
      return   sum + obj.count
     },0)
-    const pizzas = pizzaItem.map((obj) => <CartItem key={obj.id} {...obj}/>)
+    const pizzas = pizzaItem.map((obj) => <CartItem key={obj.id + obj.type + obj.size} {...obj}/>)
     const dispatch = useDispatch()
 
     if (totalPrice === 0) {
