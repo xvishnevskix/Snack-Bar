@@ -73,7 +73,7 @@ import App from "../App";
              return true
          }
          return false
-     }).map((obj: Pizza) => <PizzaBlock key={obj.id + obj.type + obj.size} {...obj}/>)
+     }).map((obj: Pizza) => <PizzaBlock key={obj.id + obj.types + obj.sizes} {...obj}/>)
 
 
     return (

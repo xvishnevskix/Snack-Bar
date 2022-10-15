@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addItem, CartItem} from "../../redux/slices/cartSlice";
 import {Link} from "react-router-dom";
 import {RootState} from "../../redux/store";
+import {CartItemProps} from "../CartItem";
 
 type PizzaBlockProps = {
     id: string,
@@ -10,31 +11,30 @@ type PizzaBlockProps = {
     price: number,
     imageUrl: string,
     count: number,
-    size: number[],
-    type: number[],
+    sizes: number[],
+    types: number[],
     rating: number,
 }
 
-const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, size, type}) => {
+const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, sizes, types}) => {
 
     const typeNames = ['тонкое', 'традиционное']
     const [pizzaType, setPizzaType] = useState(0)
     const [pizzaSize, setPizzaSize] = useState(0)
     const dispatch = useDispatch()
-    const pizzaItem = useSelector((state:RootState) => state.cart.items.find((obj)=> obj.id ===id))
+    const pizzaItem = useSelector((state:RootState) => state.cart.items.find((obj:any)=> obj.id ===id && obj.sizes === sizes && obj.types === types ))
 
     const addedCount = pizzaItem ? pizzaItem.count : 0;
 
 
 
     const onClickAdd = () => {
-        const item: CartItem = {
+        const item = {
             id,
             title,
             price,
             imageUrl,
-            count: 0,
-            size: size[pizzaSize],
+            size: sizes[pizzaSize],
             type: typeNames[pizzaType]
         }
         dispatch(addItem(item))
@@ -51,32 +51,26 @@ const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, size, 
                     />
                 </Link>
                 <h4 className="pizza-block__title">{title} </h4>
+                <div className="pizza-block__selector">
+                    <ul>
+                        {types.map((t, i) => (
+                            <li key={i} onClick={() => (setPizzaType(t))}
+                                className={pizzaType === t ? "active" : ""}>
+                                {typeNames[t]}
+                            </li>
+                        ))}
+                    </ul>
+                    <ul >
+                        {sizes.map((s, i) => (
+                            <li
+                                key={i}
+                                onClick={() => (setPizzaSize(i))}
+                                className={pizzaSize === i ? "active" : ""}
+                            >{s} см.</li>
+                        ))}
 
-                    <div className="pizza-block__selector">
-                        {pizzaItem &&
-                           ( <ul>
-                                {type.map((t, i) => (
-                                    <li key={i} onClick={() => (setPizzaType(t))}
-                                        className={pizzaType === t ? "active" : ""}>
-                                        {typeNames[t]}
-                                    </li>
-                                ))}
-                            </ul>)
-                        }
-
-
-                        <ul>
-
-                            {size.map((s, i) => (
-                                <li
-                                    key={i}
-                                    onClick={() => (setPizzaSize(i))}
-                                    className={pizzaSize === i ? "active" : ""}
-                                >{s} см.</li>
-                            ))}
-
-                        </ul>
-                    </div>
+                    </ul>
+                </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
                     <button onClick={onClickAdd} className="button button--outline button--add">
@@ -98,7 +92,7 @@ const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, size, 
                 </div>
             </div>
         </div>
-       )
+    )
 }
 
 export default PizzaBlock;

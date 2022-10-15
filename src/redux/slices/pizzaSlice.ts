@@ -21,8 +21,8 @@ export type Pizza = {
     price: number,
     imageUrl: string,
     count: number,
-    size: number[],
-    type: number[],
+    sizes: number[],
+    types: number[],
     category: number[],
     rating: number
 }
@@ -65,6 +65,7 @@ const pizzaSlice = createSlice({
             state.items = []
         })
     }
+
 })
 
 export const pizzaSelector = (state: RootState) => state.pizza
