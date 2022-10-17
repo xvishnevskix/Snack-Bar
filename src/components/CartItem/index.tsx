@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {addItem, clearItem, minusItem} from "../../redux/slices/cartSlice";
+import {addItem, clearItem, minusItem} from "../../redux/cart/slice";
 import {RootState} from "../../redux/store";
 import clsx from "clsx";
 
