@@ -4,8 +4,6 @@ import {RootState} from "../store";
 import {CartItem} from "./cartSlice";
 
 
-type FetchPizzasArgs = Record<string, string>
-
 export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>(
     'pizza/fetchPizzaStatus',
     async (params) => {
@@ -34,8 +32,9 @@ export enum Status {
 }
 
 interface PizzaSliceState {
-    items: Pizza[]
-    status: Status
+    items: Pizza[],
+    status: Status,
+
 }
 
 const initialState:PizzaSliceState = {
@@ -59,7 +58,7 @@ const pizzaSlice = createSlice({
         builder.addCase(fetchPizzas.fulfilled, (state, action) => {
             state.items = action.payload
             state.status = Status.SUCCESS
-        }),
+        })
         builder.addCase(fetchPizzas.rejected, (state) => {
             state.status = Status.ERROR
             state.items = []

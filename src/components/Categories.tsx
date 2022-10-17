@@ -2,14 +2,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCategoryId} from "../redux/slices/filterSlice";
 import React from "react";
 import {RootState} from "../redux/store";
+import {useWhyDidYouUpdate} from "ahooks";
 
+type CategoryProps = {
+    categoryId: number
+}
 
-
-const Categories:React.FC = () => {
+const Categories:React.FC<CategoryProps> = React.memo(() => {
     const categories = ['Все', 'Мясные', 'Вегетарианская','Гриль','Острые','Закрытые']
 
-    const dispatch = useDispatch()
     const categoryId = useSelector((state:RootState) => state.filter.category)
+    const dispatch = useDispatch()
 
     const onChangeCategory: (id:number) => void = React.useCallback((idx) => {
         dispatch(setCategoryId(idx));
@@ -28,6 +31,6 @@ const Categories:React.FC = () => {
 
         </ul>
     </div>)
-}
+})
 
 export default Categories;

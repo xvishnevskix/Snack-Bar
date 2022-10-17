@@ -6,7 +6,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {filterSelector, setFilters} from "../redux/slices/filterSlice";
+import {filterSelector, setCategoryId, setFilters} from "../redux/slices/filterSlice";
 import qs from "qs"
 import { useNavigate } from "react-router-dom";
 import {fetchPizzas, Pizza, pizzaSelector} from "../redux/slices/pizzaSlice";
@@ -21,6 +21,7 @@ import App from "../App";
       const {items, status} = useSelector(pizzaSelector)
      const {currentPage, category, selectedSort, searchValue} = useSelector(filterSelector)
 
+
      // const [items, setItems] = React.useState([])
      const isSearch = React.useRef(false)
      const isMounted = React.useRef(false)
@@ -33,6 +34,7 @@ import App from "../App";
              // setItems(res.data)
 
      };
+
 
      // React.useEffect(() => {
      //     const querySearch = qs.stringify({
@@ -79,8 +81,7 @@ import App from "../App";
     return (
         <>
         <div className="content__top">
-
-            <Categories/>
+            <Categories categoryId={category} />
             <Sort />
         </div>
      <h2 className="content__title">Все пиццы</h2>
@@ -92,7 +93,6 @@ import App from "../App";
                     : (<div className="content__items">
                         {status === 'loading' ? skeleton : pizzas}</div>)
             }
-
             <Pagination/>
         </>
     )

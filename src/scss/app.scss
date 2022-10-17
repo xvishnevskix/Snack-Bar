@@ -246,6 +246,22 @@ body {
             display: none;
           }
         }
+
+        &--disabled {
+          opacity: 0.3;
+          border-color: #838383;
+
+          svg path {
+            fill: #7b7b7b;
+          }
+          &:hover {
+              background-color: #8d8d8d;
+            svg path {
+              fill: #e1e1e1;
+            }
+          }
+
+        }
       }
 
       b {
@@ -295,6 +311,7 @@ body {
           border-color: darken($color: $gray-line, $amount: 80);
           background-color: darken($color: $gray-line, $amount: 80);
         }
+
       }
     }
   }
