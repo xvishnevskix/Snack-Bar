@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addItem} from "../../redux/cart/slice";
 import {Link} from "react-router-dom";
 import {RootState} from "../../redux/store";
-import { CartItem } from "../../redux/cart/type";
+import { CartItem } from "../../redux/cart/types";
 
 
 type PizzaBlockProps = {

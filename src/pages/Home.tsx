@@ -6,12 +6,15 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {filterSelector, setCategoryId, setFilters} from "../redux/slices/filterSlice";
+import { setCategoryId, setFilters} from "../redux/filter/slice";
 import qs from "qs"
 import { useNavigate } from "react-router-dom";
-import {fetchPizzas, Pizza, pizzaSelector} from "../redux/slices/pizzaSlice";
+import {fetchPizzas} from "../redux/pizza/slice";
+import {Pizza} from "../redux/pizza/types"
 import {AppDispatch, RootState, useAppDispatch} from "../redux/store";
 import App from "../App";
+import { filterSelector } from "../redux/filter/selectors";
+import { pizzaSelector } from "../redux/pizza/selectors";
 
 
 
@@ -20,7 +23,6 @@ import App from "../App";
      const dispatch = useAppDispatch()
       const {items, status} = useSelector(pizzaSelector)
      const {currentPage, category, selectedSort, searchValue} = useSelector(filterSelector)
-
 
      // const [items, setItems] = React.useState([])
      const isSearch = React.useRef(false)
