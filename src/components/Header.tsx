@@ -3,14 +3,24 @@
  import Search from "./Search";
  import {useDispatch, useSelector} from "react-redux";
  import {RootState} from "../redux/store";
+ import React, {useRef} from "react";
 
 const Header = () => {
 
     const location = useLocation()
     const {items, totalPrice} = useSelector((state: RootState) => state.cart)
+    const isMount = useRef(false)
     const totalCount = items.reduce((sum: number, item) => {
        return  sum + item.count
     },0)
+
+    React.useEffect(() => {
+        if (isMount.current) {
+            const json = JSON.stringify(items)
+            localStorage.setItem("cart", json)
+        }
+        isMount.current = true
+    },[items,totalPrice])
 
     return (
         <div className="header">

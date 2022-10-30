@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {setCategoryId} from "../redux/slices/filterSlice";
+import {setCategoryId} from "../redux/filter/slice";
 import React from "react";
 import {RootState} from "../redux/store";
 import {useWhyDidYouUpdate} from "ahooks";
