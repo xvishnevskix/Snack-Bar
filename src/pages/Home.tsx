@@ -36,8 +36,14 @@ import { pizzaSelector } from "../redux/pizza/selectors";
              // setItems(res.data)
 
      };
-     
 
+     const checkBrackets = (str: string) => {
+         const set1 = str.split("").filter((string: string) => string !== "(")
+         const set2 = str.split("").filter((string) => string !== ")")
+         console.log(set1.length, set2)
+        return set1 === set2
+
+     }
      // React.useEffect(() => {
      //     const querySearch = qs.stringify({
      //         category,
@@ -67,6 +73,11 @@ import { pizzaSelector } from "../redux/pizza/selectors";
 
     React.useEffect(() => {
             getPizzas()
+
+
+
+        console.log(checkBrackets("()))))))"))
+
     }, [category, searchValue,currentPage, selectedSort.sortType])
 
 
