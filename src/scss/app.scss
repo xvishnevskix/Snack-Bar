@@ -203,8 +203,11 @@ body {
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
-    @media (max-width: 950px) {
+    @media (max-width: 900px) {
       flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      ;
     }
 
     &-img {
