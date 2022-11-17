@@ -4,6 +4,9 @@
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
+  @media (max-width: 320px){
+    width: 230px;
+  }
 
   &-wrapper {
     display: flex;
@@ -11,7 +14,11 @@
   }
 
   &__image {
+    margin-left: 8px;
     width: 260px;
+    @media (max-width: 320px){
+      width: 220px;
+    }
   }
 
   &__title {
