@@ -21,9 +21,22 @@
   width: 300px;
   transition: all 0.15s ease-in-out;
 
+  @media (max-width: 800px) {
+    width: 350px;
+  }
+  @media (max-width: 500px) {
+    width: 250px;
+  }
+  @media (max-width: 400px) {
+    width: 200px;
+  }
+
   &:focus {
     border: 1px solid rgba(0,0,0,0.3);
     width: 400px;
+    @media (max-width: 500px) {
+      width: 280px;
+    }
   }
 
   &:hover {
