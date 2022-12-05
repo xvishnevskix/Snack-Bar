@@ -19,67 +19,21 @@ import { pizzaSelector } from "../redux/pizza/selectors";
 
 
  const Home:React.FC = () => {
-     const navigate = useNavigate()
      const dispatch = useAppDispatch()
-      const {items, status} = useSelector(pizzaSelector)
+     const {items, status} = useSelector(pizzaSelector)
      const {currentPage, category, selectedSort, searchValue} = useSelector(filterSelector)
-
-     // const [items, setItems] = React.useState([])
-     const isSearch = React.useRef(false)
-     const isMounted = React.useRef(false)
 
      const getPizzas = async () => {
          const sortMethod = selectedSort.sortType.includes('-') ? 'asc' : 'desc'
          const sortBy = selectedSort.sortType.replace('-', '');
-
              dispatch(fetchPizzas({currentPage: String(currentPage), sortBy, sortMethod, category: String(category)}))
              // setItems(res.data)
-
      };
 
-     const checkBrackets = (str: string) => {
-         const set1 = str.split("").filter((string: string) => string !== "(")
-         const set2 = str.split("").filter((string) => string !== ")")
-         console.log(set1.length, set2)
-        return set1 === set2
-
-     }
-     // React.useEffect(() => {
-     //     const querySearch = qs.stringify({
-     //         category,
-     //         currentPage,
-     //         sortType: selectedSort.sortType
-     //     })
-     //
-     //         navigate(`?${querySearch}`)
-     //
-     // }, [category, selectedSort.sortType,currentPage])
-
-     // React.useEffect(() => {
-     //     if (window.location.search) {
-     //         const params = qs.parse(window.location.search.substring(1));
-     //
-     //         const sort = sortList.find((obj) => obj.sortType === params.sortType);
-     //
-     //         dispatch(
-     //             setFilters({
-     //                 ...params,
-     //                 sort,
-     //             }),
-     //         );
-     //         isSearch.current = true;
-     //     }
-     // }, []);
 
     React.useEffect(() => {
             getPizzas()
-
-
-
-        console.log(checkBrackets("()))))))"))
-
     }, [category, searchValue,currentPage, selectedSort.sortType])
-
 
 
      const skeleton = [...new Array(9)].map((_, index) => <Skeleton key={index}/>)
