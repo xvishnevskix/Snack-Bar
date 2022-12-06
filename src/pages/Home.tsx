@@ -1,15 +1,10 @@
 import React from "react";
-import axios from "axios"
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../components/Pagination";
-// import {Pagination, PizzaBlock, Skeleton, Sort, Categories} from "../components"
 import {useSelector} from "react-redux";
-import { setCategoryId, setFilters} from "../redux/filter/slice";
-import qs from "qs"
-import { useNavigate } from "react-router-dom";
 import {fetchPizzas} from "../redux/pizza/slice";
 import {Pizza} from "../redux/pizza/types"
 import {useAppDispatch} from "../redux/store";
