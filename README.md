@@ -1,4 +1,4 @@
-# 🍕 Awesome Pizza
+# 🍕 Snack Bar
 
 Demo: https://pizza-xi-five.vercel.app/
 
