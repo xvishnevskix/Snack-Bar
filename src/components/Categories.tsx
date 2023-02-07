@@ -9,7 +9,7 @@ type CategoryProps = {
 }
 
 const Categories:React.FC<CategoryProps> = React.memo(() => {
-    const categories = ['Все', 'Мясные', 'Вегетарианская','Гриль','Острые','Закрытые']
+    const categories = ['Все', 'Классика', 'Суши','Гриль','Авторское','Пицца']
 
     const categoryId = useSelector((state:RootState) => state.filter.category)
     const dispatch = useDispatch()

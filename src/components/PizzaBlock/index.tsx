@@ -19,9 +19,9 @@ type PizzaBlockProps = {
 
 const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, sizes, types}) => {
 
-    const typeNames = ['тонкое', 'традиционное']
+    const typeNames = ['тонкое', 'традиционное', '4 шт', '8 шт']
 
-    const [pizzaType, setPizzaType] = useState(0)
+    const [pizzaType, setPizzaType] = useState(types[0])
     const [pizzaSize, setPizzaSize] = useState(0)
     const pizzaItem = useSelector((state:RootState) => state.cart.items.find((obj)=> obj.id ===id && obj.size === sizes[pizzaSize] && obj.type === typeNames[pizzaType] ))
     const dispatch = useDispatch()
@@ -44,13 +44,15 @@ const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, sizes,
     return(
         <div className="pizza-block-wrapper">
             <div className="pizza-block">
-                <Link to={`/pizza/${id}`}>
-                    <img
-                        className="pizza-block__image"
-                        src={imageUrl}
-                        alt="Pizza"
-                    />
-                </Link>
+                <div className="pizza-block__image-block">
+                    <Link to={`/pizza/${id}`}>
+                        <img
+                            className="pizza-block__image"
+                            src={imageUrl}
+                            alt="Pizza"
+                        />
+                    </Link>
+                </div>
                 <h4 className="pizza-block__title">{title} </h4>
                 <div className="pizza-block__selector">
                     <ul>
@@ -61,16 +63,17 @@ const PizzaBlock:React.FC<PizzaBlockProps> = ({id,title, price, imageUrl, sizes,
                             </li>
                         ))}
                     </ul>
-                    <ul >
-                        {sizes.map((s, i) => (
-                            <li
-                                key={i}
-                                onClick={() => (setPizzaSize(i))}
-                                className={pizzaSize === i ? "active" : ""}
-                            >{s} см.</li>
-                        ))}
-
-                    </ul>
+                    {
+                        (sizes.length > 0) && (<ul >
+                            {sizes.map((s, i) => (
+                                <li
+                                    key={i}
+                                    onClick={() => (setPizzaSize(i))}
+                                    className={pizzaSize === i ? "active" : ""}
+                                >{s}</li>
+                            ))}
+                        </ul>)
+                    }
                 </div>
                 <div className="pizza-block__bottom">
                     <div className="pizza-block__price">от {price} ₽</div>
