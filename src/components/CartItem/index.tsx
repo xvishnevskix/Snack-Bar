@@ -53,7 +53,7 @@ const CartItem:React.FC<CartItemProps> = ({id,title, price, imageUrl, count, siz
             </div>
                 <div className="cart__item-info">
                     <h3>{title}</h3>
-                    <p>{type},{size} см.</p>
+                    <p>{type} {size}</p>
                 </div>
                 <div className="cart__item-count">
                     <button disabled={minus} onClick={() => onClickMinus(pizzaItem)} className={clsx('button button--outline button--circle cart__item-count-minus',

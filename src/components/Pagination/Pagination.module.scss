@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 
 .root {
   li {
@@ -10,7 +12,7 @@
       width: 50px;
       height: 50px;
       justify-content: center;
-      border: 1px solid #fe5f1e;
+      border: 1px solid $orange;
       border-radius: 30px;
       align-self: center;
       line-height: 48px;
@@ -19,7 +21,7 @@
       transition: all 0.2s ease-in-out;
 
       &:hover {
-        background-color: #fe5f1e;
+        background-color: $orange;
         color: #f9f9f9;
       }
     }
@@ -28,7 +30,7 @@
   :global {
     .selected {
       a {
-        background-color: #fe5f1e;
+        background-color: $orange;
         color: #f9f9f9;
       }
     }

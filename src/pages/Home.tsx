@@ -26,8 +26,13 @@ import { pizzaSelector } from "../redux/pizza/selectors";
      };
 
 
+
+
+
+
     React.useEffect(() => {
             getPizzas()
+
     }, [category, searchValue,currentPage, selectedSort.sortType])
 
 
@@ -46,11 +51,11 @@ import { pizzaSelector } from "../redux/pizza/selectors";
             <Categories categoryId={category} />
             <Sort />
         </div>
-     <h2 className="content__title">Все пиццы</h2>
+     <h2 className="content__title">Меню</h2>
             {
                 status === 'error'
                     ? (<div className="content__error-info"> <h2>Произошла ошибка <span>😕</span></h2>
-                        <p>К сожалению, не удалось получить пиццы.<br/>
+                        <p>К сожалению, не удалось получить меню.<br/>
                         Попробуйте повторить снова.</p></div>)
                     : (<div className="content__items">
                         {status === 'loading' ? skeleton : pizzas}</div>)
